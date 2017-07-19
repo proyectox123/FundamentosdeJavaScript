@@ -1,20 +1,23 @@
-const p1 = {
-	x : 0,
-	y : 4,
-	moveInX : function (x) { this.x += x },
-	moveInY : function (y) { this.y += y }
+function Point(x, y){
+	this.x = x
+	this.y = y
 }
 
-const p2 = {
-	x : 3,
-	y : 0,
-	moveInX : function (x) { this.x += x },
-	moveInY : function (y) { this.y += y }
+Point.prototype.moveInX = function moveInX(x) { this.x += x },
+Point.prototype.moveInY = function moveInY(y) { this.y += y },
+Point.prototype.distance = function distance(p){
+	const x = this.x - p.x
+	const y = this.y - p.y
+
+	return Math.sqrt(x * x + y * y)
 }
 
-const getX = () => p1.x - p2.x
-const getY = () => p1.y - p2.y
-const distance = (p1, p2) => Math.sqrt(getX() * getX() + getY() * getY())
+const p1 = new Point(0, 4)
+const p2 = new Point(3, 0)
 
-console.log(distance(p1, p2))
+console.log(p1.distance(p2))
+console.log(p2.distance(p1))
 console.log(p1.moveInX(10))
+console.log(p1.distance(p2))
+console.log(p2.moveInY(-4))
+console.log(p1.distance(p2))
