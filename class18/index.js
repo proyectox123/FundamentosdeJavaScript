@@ -3,7 +3,8 @@ class Toggable{
 		this.el = el
 		this.el.innerHTML = "Off"
 		this.activated = false
-		this.el.addEventListener('click', this.onClick.bind(this))
+		this.onClick = this.onClick.bind(this)
+		this.el.addEventListener('click', this.onClick)
 	}
 
 	onClick(){
