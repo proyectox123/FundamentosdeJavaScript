@@ -42,6 +42,43 @@
       const levels = 15
       let keys = generateKeys(levels)
 
+      function nextRound(actualLevel){
+        if(actualLevel == levels){
+          return alert('You win!')
+        }
+
+        alert(`Level ${actualLevel + 1}`)
+
+        for(let i = 0; i <= actualLevel; i++){
+          setTimeout(() => activate(keys[i]),
+            1000 * (i+1))
+        }
+
+        let i = 0
+        let actualKey = keys[i]
+        window.addEventListener('keydown', onkeydown)
+
+        function onkeydown(event) {
+          if(event.keyCode == actualKey){
+            activate(actualKey, {success : true})
+            i++
+            if(i > actualLevel){
+              window.removeEventListener('keydown', onkeydown)
+              setTimeout(() => nextRound(i), 1500)
+            }
+
+            actualKey = keys[i]
+          } else {
+            activate(event.keyCode, { fail : true })
+            window.removeEventListener('keydown', onkeydown)
+            setTimeout(() => alert('Perdiste :('), 1500)
+            
+          }
+        }
+      }
+
+      nextRound(0)
+
       function generateKeys(levels){
         return new Array(levels).fill(0).map(generateKey)
       }
